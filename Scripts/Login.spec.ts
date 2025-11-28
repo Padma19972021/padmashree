@@ -1,14 +1,27 @@
 import {test, expect, Browser, Page, Locator, BrowserContext} from '@playwright/test'
 import { webkit, chromium,firefox } from '@playwright/test'
 
-test('login test' , async()=>{
-    const browser:Browser=await chromium.launch({headless:false});
+test('login test' , async({page})=>{
+   // const browser:Browser=await firefox.launch({headless:false});
     /* Browser Context flows for multiple browers
     const browserContext1 : BrowserContext=await browser.newContext();
      const page1: Page=await browserContext1.newPage();
      */
-    const page:Page=await browser.newPage();
+  //  const page:Page=await browser.newPage();
     await page.goto("https://www.amazon.in");
+    
+    //await page.getByRole('button', {name:'All'}).first().click({force:true});
+    await page.waitForSelector('#nav-hamburger-menu', { state: 'visible' });
+await page.locator('#nav-hamburger-menu').click({ force: true });
+const trendingOptions=await page.getByRole('heading' ,{name:'Trending'}).locator('xpath=ancestor::section');
+trendingOptions.locator('ul li');
+console.log(await trendingOptions.count());
+await page.locator('a.hmenu-item:has-text("Fire TV")').first().click();
+
+
+
+    
+    await page.getByRole('button', {name:'Close menu'}).click();
     //page.waitForURL('**/ap/signin');
     await page.hover('//button[@aria-label="Expand Account and Lists"]');
     await page.locator('[class*="signin"]').click();
