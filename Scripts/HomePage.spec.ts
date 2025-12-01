@@ -32,7 +32,9 @@ test('Home Page test' , async({page})=>{
     const menuCategoriesLocator=await home.menuCategories;
     console.log(menuCategoriesLocator.count());
     console.log(await menuCategoriesLocator.allInnerTexts());
-   
+    await home.click(home.searchBox);
+    await home.search(home.searchBox, 'iphone');
+    await home.dynamicSearch(home.searchSuggestions);
 
 
 });

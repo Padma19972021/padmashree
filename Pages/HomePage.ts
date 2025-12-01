@@ -10,6 +10,7 @@ export class HomePage{
   readonly cartIcon: Locator;
   readonly signInMenuItemButton: Locator;
   readonly menuCategories: Locator;
+  readonly searchSuggestions:Locator;
 
 
     constructor(page:Page){
@@ -28,9 +29,33 @@ export class HomePage{
     this.returnsOrders= page.getByRole('link',{name:'Returns & Orders'});
     this.cartIcon= page.getByRole('link',{name:'items in cart'});
     this.menuCategories=page.locator('#nav-xshop ul li a');
+
+    this.searchSuggestions=page.locator('div[role="row"]');
 }
     async navigate()
     {
         await this.page.goto('https://amazon.in');
+    }
+
+    async click(element: Locator){
+        await element.waitFor({state:'visible'});
+        await element.click();
+    }
+    async search(element:Locator, key:any){
+        await element.waitFor({state:'visible'});
+        await element.fill(key);
+    }
+    async dynamicSearch(element: Locator){
+        //const suggestionRows=await page.locator('div[role="row"]');
+    await expect(this.searchSuggestions.first()).toBeVisible();
+    const len=await this.searchSuggestions.count();
+    console.log("suggestions length" +len);
+    const suggestions =this.searchSuggestions.allInnerTexts();
+    for (const ele of await suggestions){
+        console.log(ele);
+    }
+    }
+    async verifyTitle(){
+        await this.page.getT
     }
 }
