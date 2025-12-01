@@ -13,6 +13,7 @@ test('Home Page test' , async({page})=>{
     await home.navigate();
     //await page.getByRole('link',{name:'Amazon.in'}).isVisible();
     await expect(home.logo).toBeVisible();
+    await home.verifyTitle('Online Shopping site in India: Shop Online for Mobiles, Books, Watches, Shoes and More - Amazon.in');
     //await page.getByRole('searchbox',{name:'Search Amazon.in'}); // or
     //await page.getByPlaceholder('Search Amazon.in');
     await expect(home.searchBox).toBeVisible();

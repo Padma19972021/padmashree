@@ -55,7 +55,9 @@ export class HomePage{
         console.log(ele);
     }
     }
-    async verifyTitle(){
-        await this.page.getT
+    async verifyTitle(expectedTitle:string){
+        const actualTitle=await this.page.title();
+        console.log(actualTitle);
+        await expect(this.page).toHaveTitle(expectedTitle);
     }
 }
