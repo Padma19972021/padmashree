@@ -1,6 +1,7 @@
 import {expect, Locator, Page} from '@playwright/test';
+import {BasePage} from './BasePage.js'
 
-export class HomePage{
+export class HomePage extends BasePage{
     readonly page: Page;
     readonly logo: Locator;
       readonly searchBox: Locator;
@@ -14,6 +15,7 @@ export class HomePage{
 
 
     constructor(page:Page){
+        super(page);
         this.page=page;
         this.logo=this.page.getByRole('link',{name:'Amazon.in'});
     //await page.getByRole('searchbox',{name:'Search Amazon.in'}); // or
