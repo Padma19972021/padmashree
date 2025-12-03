@@ -7,13 +7,14 @@ import {test, expect, Browser, Page, Locator, BrowserContext} from '@playwright/
 import { webkit, chromium,firefox } from '@playwright/test'
 import { HomePage } from '../Pages/HomePage.js';
 
-test('Home Page test' , async({page})=>{
+test('Home Page test' ,{tag:'@home'} ,async({page})=>{
 
     const home=new HomePage(page);
     await home.navigate();
     //await page.getByRole('link',{name:'Amazon.in'}).isVisible();
     await expect(home.logo).toBeVisible();
     await home.verifyTitle('Online Shopping site in India: Shop Online for Mobiles, Books, Watches, Shoes and More - Amazon.in');
+    await home.verifyTitleContains('Amazon');
     //await page.getByRole('searchbox',{name:'Search Amazon.in'}); // or
     //await page.getByPlaceholder('Search Amazon.in');
     await expect(home.searchBox).toBeVisible();
@@ -34,7 +35,8 @@ test('Home Page test' , async({page})=>{
     console.log(menuCategoriesLocator.count());
     console.log(await menuCategoriesLocator.allInnerTexts());
     await home.click(home.searchBox);
-    await home.search(home.searchBox, 'iphone');
+    await home.enterText(home.searchBox, 'iphone');
+    //await home.page.waitForSelector("div[role='row']", { state: "visible",timeout: 15000 });
     await home.dynamicSearch(home.searchSuggestions);
 
 

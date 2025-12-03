@@ -39,16 +39,7 @@ export class HomePage extends BasePage{
         await this.page.goto('https://amazon.in');
     }
 
-    async click(element: Locator){
-        await element.waitFor({state:'visible'});
-        await element.click();
-    }
-    async search(element:Locator, key:any){
-        await element.waitFor({state:'visible'});
-        await element.fill(key);
-    }
     async dynamicSearch(element: Locator){
-        //const suggestionRows=await page.locator('div[role="row"]');
     await expect(this.searchSuggestions.first()).toBeVisible();
     const len=await this.searchSuggestions.count();
     console.log("suggestions length" +len);
@@ -57,9 +48,6 @@ export class HomePage extends BasePage{
         console.log(ele);
     }
     }
-    async verifyTitle(expectedTitle:string){
-        const actualTitle=await this.page.title();
-        console.log(actualTitle);
-        await expect(this.page).toHaveTitle(expectedTitle);
-    }
+    //await this.dynamicSearch(this.searchSuggestions);
+  
 }

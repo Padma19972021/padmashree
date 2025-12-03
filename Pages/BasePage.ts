@@ -13,7 +13,8 @@ export class BasePage{
             await this.page.locator(element).click();
         }
         else{
-            await element.click();
+        await element.waitFor({state:'visible'});
+        await element.click();
         }
     }
     async enterText(element: Locator|string, text:string){
@@ -21,7 +22,8 @@ export class BasePage{
             await this.page.fill(element,text);
         }
         else{
-            await element.fill(text);
+        await element.waitFor({state:'visible'});
+        await element.fill(text);
         }
     }
     // Validate page title (exact match)
@@ -64,5 +66,21 @@ export class BasePage{
     }
     async hardWait(seconds:number){
     await this.page.waitForTimeout(seconds*1000);
+    }
+    async dynamicSearch(element: Locator| string){
+    let locator:Locator;
+    if(typeof element==='string'){
+        
+     locator= await this.page.locator(element);
+        
+    }else{
+        locator=element;
+    }
+    const len=await locator.count();
+    console.log("suggestions length" +len);
+    const suggestions =await locator.allInnerTexts();
+    for (const ele of suggestions){
+        console.log(ele);
+    }
     }
 }
