@@ -6,6 +6,7 @@
 import {test, expect, Browser, Page, Locator, BrowserContext} from '@playwright/test'
 import { webkit, chromium,firefox } from '@playwright/test'
 import { HomePage } from '../Pages/HomePage.js';
+import { EXPECTED_TITLE } from '../Config/constants.js';
 
 test('Home Page test' ,{tag:'@home'} ,async({page})=>{
 
@@ -13,7 +14,7 @@ test('Home Page test' ,{tag:'@home'} ,async({page})=>{
     await home.navigate();
     //await page.getByRole('link',{name:'Amazon.in'}).isVisible();
     await expect(home.logo).toBeVisible();
-    await home.verifyTitle('Online Shopping site in India: Shop Online for Mobiles, Books, Watches, Shoes and More - Amazon.in');
+    await home.verifyTitle(EXPECTED_TITLE.home);
     await home.verifyTitleContains('Amazon');
     //await page.getByRole('searchbox',{name:'Search Amazon.in'}); // or
     //await page.getByPlaceholder('Search Amazon.in');

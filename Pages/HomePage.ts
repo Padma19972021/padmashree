@@ -1,5 +1,8 @@
 import {expect, Locator, Page} from '@playwright/test';
-import {BasePage} from './BasePage.js'
+import {BasePage} from './BasePage.js';
+import { urls } from '../Config/urls.js';
+//import { EXPECTED_TITLE } from '../Config/constants.js';
+//import { credentials } from '../Config/testData.js';
 
 export class HomePage extends BasePage{
     readonly page: Page;
@@ -36,7 +39,7 @@ export class HomePage extends BasePage{
 }
     async navigate()
     {
-        await this.page.goto('https://amazon.in');
+        await this.page.goto(urls.baseURL);
     }
 
     async dynamicSearch(element: Locator){
